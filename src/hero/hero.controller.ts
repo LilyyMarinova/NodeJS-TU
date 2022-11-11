@@ -11,7 +11,7 @@ export class HeroController {
 	getHeroesByUniverse(@Param('universe') universe: string) {
 		return this.heroService.getHeroesByUniverse(universe);
 	}
-
+  
 	@Get()
 	getHeroesByFilters(@Query() queryParams: { name: string, universe: string }): Hero[] {
 		if (Object.keys(queryParams).length === 0) {
