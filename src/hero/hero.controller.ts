@@ -13,12 +13,12 @@ export class HeroController {
 	}
 
 	@Get()
-	getHeroesByFilters(@Query() query: { name: string, universe: string }): Hero[] {
-		if (Object.keys(query).length === 0) {
+	getHeroesByFilters(@Query() queryParams: { name: string, universe: string }): Hero[] {
+		if (Object.keys(queryParams).length === 0) {
 			return this.heroService.getAllHeroes();
 		}
 
-		return this.heroService.getHeroesByFilters(query.universe, query.name);
+		return this.heroService.getHeroesByFilters(queryParams.universe, queryParams.name);
 	}
 	
 }
