@@ -1,3 +1,4 @@
+
 import { Injectable } from '@nestjs/common';
 import { Hero } from './hero.model';
 
@@ -5,18 +6,20 @@ import { Hero } from './hero.model';
 export class HeroService {
 
   marvelHeroes: Hero[] = [
-    {name: 'Spiderman 1', powers: ['web'], universe: 'Marvel'},
-    {name: 'Spiderman 2', powers: ['web'], universe: 'Marvel'},
-    {name: 'Spiderman 3', powers: ['web'], universe: 'Marvel'}
+    {name: 'Spiderman', powers: ['web'], universe: 'Marvel'},
+    {name: 'Iron Man', powers: ['web'], universe: 'Marvel'},
+    {name: 'Deadpool', powers: ['web'], universe: 'Marvel'},
+    {name: 'Ant-man', powers: ['web'], universe: 'Marvel'},
   ];
 
   dcHeroes: Hero[] = [
-    {name: 'Batman 1', powers: ['strenght'], universe: 'DC'},
-    {name: 'Batman 2', powers: ['strenght'], universe: 'DC'},
+    {name: 'Batman', powers: ['strenght'], universe: 'DC'},
+    {name: 'Catwoman', powers: ['strenght'], universe: 'DC'},
+    {name: 'Superman', powers: ['strenght'], universe: 'DC'},
   ];
 
   getAllHeroes(): Hero[] {
-    const heroes = [...this.marvelHeroes];
+    const heroes = [...this.marvelHeroes, ...this.dcHeroes];
     return heroes;
   }
 
@@ -24,6 +27,29 @@ export class HeroService {
     const heroes = [...this.marvelHeroes, ...this.dcHeroes].filter(
       (hero) => hero.universe.toLocaleLowerCase() === universe.toLocaleLowerCase()
     );
+
+    return heroes;
+  }
+
+  getHeroesByFilters(universe: string, name: string): Hero[] {
+    let heroes = [];
+    if (universe !== undefined && name !== undefined) {
+      heroes = [...this.marvelHeroes, ...this.dcHeroes].filter(
+        (hero) => hero.universe.toLocaleLowerCase() === universe.toLocaleLowerCase() && hero.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+      );
+    }
+
+    if (universe !== undefined) {
+      heroes = [...this.marvelHeroes, ...this.dcHeroes].filter(
+        (hero) => hero.universe.toLocaleLowerCase() === universe.toLocaleLowerCase()
+      );
+    }
+
+    if (name !== undefined) {
+      heroes = [...this.marvelHeroes, ...this.dcHeroes].filter(
+        (hero) => hero.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+      );
+    }
 
     return heroes;
   }
